@@ -13,7 +13,7 @@ if (!$con) {
 		    echo "error de depuración: " . mysqli_connect_error() . PHP_EOL;
 		    exit;
 		}
-		$message2 = "Éxito: Se realizó una conexión apropiada a MySQL! La base de datos u133561794_fe es genial";
-		echo '<script language="javascript">alert($message2);</script>';
+		$message2 = "Éxito: Se realizó una conexión apropiada a MySQL!";
+		echo "<script language='javascript'>alert('$message2');</script>";
 		//echo "Información del host: " . mysqli_get_host_info($conexion) . PHP_EOL;
 ?>
