@@ -30,6 +30,8 @@ if(!isset($_SESSION['userid']))
     {
         if(verificar_login($_POST['user'],$_POST['password'],$result) == 1)
         {
+            //Abro sesion y añado las variables.
+            session_start();
             $_SESSION['userid'] = $result->idusuario;
             $_SESSION['username'] = $_POST['user']; 
             header("location:home.php");

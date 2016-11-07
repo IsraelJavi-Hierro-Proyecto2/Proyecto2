@@ -1,6 +1,13 @@
 <?php
-include_once "conexion.php";
+include_once "conexion.php"; 
 session_start();
+   if (is_null($_SESSION['username'])) {
+   	echo "enviar";
+    header("Location: index.php"); /* Redirect browser */
+   }
+else {
+
+}
 ?>
 
 <!DOCTYPE html>
@@ -26,5 +33,6 @@ session_start();
 		Descripción <br/>
 		Estado <br/>		
 	</div>
+	<a href="logout.php">Cerrar sesión</a>
 	</body>
 </html>
