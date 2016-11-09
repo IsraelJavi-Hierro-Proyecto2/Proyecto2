@@ -1,6 +1,38 @@
+<?php
+include("conexion.php");
+session_start();
+   if (is_null($_SESSION['username'])) {
+   	echo "enviar";
+    header("Location: index.php"); /* Redirect browser */
+   }
+else {
+
+}
+?>
 <!DOCTYPE html>
 <html>
 	<head>
+	<link rel="/img/favicon/apple-touch-icon-precomposed" sizes="57x57" href="http://javieisrael.esy.es/apple-touch-icon-57x57.png" />
+<link rel="/img/favicon/apple-touch-icon-precomposed" sizes="114x114" href="http://javieisrael.esy.es/apple-touch-icon-114x114.png" />
+<link rel="/img/favicon/apple-touch-icon-precomposed" sizes="72x72" href="http://javieisrael.esy.es/apple-touch-icon-72x72.png" />
+<link rel="/img/favicon/apple-touch-icon-precomposed" sizes="144x144" href="http://javieisrael.esy.es/apple-touch-icon-144x144.png" />
+<link rel="/img/favicon/apple-touch-icon-precomposed" sizes="60x60" href="http://javieisrael.esy.es/apple-touch-icon-60x60.png" />
+<link rel="/img/favicon/apple-touch-icon-precomposed" sizes="120x120" href="http://javieisrael.esy.es/apple-touch-icon-120x120.png" />
+<link rel="/img/favicon/apple-touch-icon-precomposed" sizes="76x76" href="http://javieisrael.esy.es/apple-touch-icon-76x76.png" />
+<link rel="/img/favicon/apple-touch-icon-precomposed" sizes="152x152" href="http://javieisrael.esy.es/apple-touch-icon-152x152.png" />
+<link rel="icon" type="image/png" href="http://javieisrael.esy.es/favicon-196x196.png" sizes="196x196" />
+<link rel="icon" type="image/png" href="http://javieisrael.esy.es/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="http://javieisrael.esy.es/favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="http://javieisrael.esy.es/favicon-16x16.png" sizes="16x16" />
+<link rel="icon" type="image/png" href="http://javieisrael.esy.es/favicon-128.png" sizes="128x128" />
+<meta name="application-name" content="Reserva de recursos"/>
+<meta name="msapplication-TileColor" content="#FFFFFF" />
+<meta name="msapplication-TileImage" content="http://javieisrael.esy.es/mstile-144x144.png" />
+<meta name="msapplication-square70x70logo" content="http://javieisrael.esy.es/mstile-70x70.png" />
+<meta name="msapplication-square150x150logo" content="http://javieisrael.esy.es/mstile-150x150.png" />
+<meta name="msapplication-wide310x150logo" content="http://javieisrael.esy.es/mstile-310x150.png" />
+<meta name="msapplication-square310x310logo" content="http://javieisrael.esy.es/mstile-310x310.png" />
+
 		<title></title>
 		<meta charset="UTF-8">
  	 	<title>Clean login form</title>
@@ -13,46 +45,44 @@
 		<div class="login">
 	  	<div class="heading">
 	    <h2>Estadística de uso</h2>
-	    <div class="estadistica"></div>
-	    	<div class="foto">iMAGEN:
-	    	</div>
-	    	Recurso:<br/>
-	    	Nº de reservas:<br/>
-	    	Personas que la han reservado:<br/>
-	    </div>
-		<?php
-		$nombre_recursos = $_REQUEST["nombre_recursos"];
-		$id_reserva = $_REQUEST["id_reserva"];
-		$nombre_usuarios = $_REQUEST["nombre_usuarios"];
-		$foto_recursos = $_REQUEST["foto_recursos"];
-		if(mysqli_num_rows($id_reserva)>0){
-			echo "Número de productos: " . mysqli_num_rows($id_reserva) . "<br/><br/>";
-			while($producto = mysqli_fetch_array($productos)){
-				echo "<div>";
-				echo "Nombre: " . $producto['pro_nombre'] . "<br/>";
-				echo "Precio: " . $producto['pro_precio'] . "<br/>";
-				echo "Tipo: " . $producto['tip_nombre'] . "<br/>";
-				$foto='img/'.$producto['pro_foto'];
+	    <form action="">
+	    <?php
+		$consulta =  mysql_query ("SELECT * FROM tbl_recursos");
+          $numero = mysql_num_rows($consulta);
+          $cantidad_personas = 0;                                  
+          while ($valores = mysql_fetch_array($consulta)) {
 
-				if (file_exists ($foto)){
-					echo "<img src='" . $foto . "' width='100'/><br/><br/>";
-				} else {
-					echo "<img src='img/0.jpg' width='100'/><br/><br/>";
-				}
-				echo "<a href='161028_exercici1_modificar.php?pro_id=". $producto['pro_id'] ."'>Modificar</a><br/>";
-				echo "<a href='161028_exercici1_eliminar.proc.php?pro_id=". $producto['pro_id'] ."'>Eliminar</a>";
+          	if ($valores['estado_recursos']) {
+          		
+          	}
+          	if($valores['estado_recursos'] == 0){
+          		$estado = "Disponible";
+          	} else {
+          		$estado = "No disponible";
+          	}
 
-				echo "</div>";
-			}
-		} else {
-			echo "No hay datos que mostrar!";
-		}
+	if ($valores['id_recursos'] == 1){
+	echo '<div class="recursos_primero"><br/>Recurso: '.$valores['nombre_recursos'].'<br/>Nº de Reservas: '.$valores['numero_reservas'].'<br/>Estado: '.$estado.'<br/>Personas que lo han reservado: '.$cantidad_personas.'<br/>Foto:<br/> <img width="150" src="img/'.$valores['foto_recursos'].'"><br/> <br/></div>';
+	}
 
-		mysqli_close($conexion);
+	if ($valores['id_recursos'] >= 2 && $valores['id_recursos'] < $numero ){
+	echo '<div class="recursos"><br/>Recurso: '.$valores['nombre_recursos'].'<br/>Nº de Reservas: '.$valores['numero_reservas'].'<br/>Estado: '.$estado.'<br/>Personas que lo han reservado: '.$cantidad_personas.'<br/>Foto:<br/> <img width="150" src="img/'.$valores['foto_recursos'].'"><br/> <br/></div>';
+	}
 
-		
+	if ($valores['id_recursos'] == $numero){
+	echo '<div class="recursos_ultimo"><br/>Recurso: '.$valores['nombre_recursos'].'<br/>Nº de Reservas: '.$valores['numero_reservas'].'<br/>Estado: '.$estado.'<br/>Personas que lo han reservado: '.$cantidad_personas.'<br/>Foto:<br/> <img width="150" src="img/'.$valores['foto_recursos'].'"><br/> <br/></div>';
+	}
+	}
 
-		?>
+
+	?>
+	</form>
+	<form action="home.php">
+		<div class="input-group input-group-lg">
+		</div>
+		<button type="submit" class="float" >Home</button>
+		</div>
+	</form>
 	 	</div>
 	 	</div>
 
