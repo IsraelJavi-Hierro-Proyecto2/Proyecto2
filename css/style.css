@@ -23,7 +23,16 @@ body {
 body, input, button {
   font-family: 'Source Sans Pro', sans-serif;
 }
-
+.reservas{
+   text-align:left;
+  color: white;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 20px 20px 20px 20px;
+  -moz-border-radius: 20px 20px 20px 20px;
+  -webkit-border-radius: 20px 20px 20px 20px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
 .recursos_primero{
   text-align:left;
   color: white;
