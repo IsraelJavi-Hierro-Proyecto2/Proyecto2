@@ -52,7 +52,8 @@ else {
 		<h3 align="center" >Productos disponibles:</h3>
 	</div>
 	<div class="login">
-	<form action="">
+	
+
 	<?php
 
 	$consulta =  mysql_query ("SELECT * FROM tbl_recursos");
@@ -62,46 +63,54 @@ else {
           	if ($valores['estado_recursos']) {
           		
           	}
-          	echo '<form action="reserva.php" method="post">';
-    		
-			
           	if($valores['estado_recursos'] == 0){
           		$estado = "Disponible";
-
+//Escribimos los recursos que están disponibles para su reserva
           		if ($valores['id_recursos'] == 1){
-	echo '<div class="recursos_primero"><br/>Recurso: '.$valores['nombre_recursos'].'<br/>Descripción: '.$valores['descripcion_recursos'].'<br/>Estado: '.$estado.'<br/>Foto:<br/> <img width="150" src="img/'.$valores['foto_recursos'].'"><button value="'.$valores['id_recursos'].'" name="id_recursos" id="id_recursos">Reservar</button><br/> <br/></div>';
+          			echo "<form action='reserva.php'>";
+	echo '<div class="recursos_primero"><br/>Recurso: '.$valores['nombre_recursos'].'<br/>Descripción: '.$valores['descripcion_recursos'].'<br/>Estado: '.$estado.'<br/>Foto:<br/> <img width="150" src="img/'.$valores['foto_recursos'].'"><button>Reservar</button><br/> <br/></div>';
+					echo "</form>";
 	}
 	if ($valores['id_recursos'] >= 2 && $valores['id_recursos'] < $numero ){
-	echo '<div class="recursos"><br/>Recurso: '.$valores['nombre_recursos'].'<br/>Descripción: '.$valores['descripcion_recursos'].'<br/>Estado: '.$estado.'<br/>Foto:<br/> <img width="150" src="img/'.$valores['foto_recursos'].'"><button value="'.$valores['id_recursos'].'" name="id_recursos" id="id_recursos">Reservar</button><br/> <br/></div>';
+		echo "<form action='reserva.php'>";
+	echo '<div class="recursos"><br/>Recurso: '.$valores['nombre_recursos'].'<br/>Descripción: '.$valores['descripcion_recursos'].'<br/>Estado: '.$estado.'<br/>Foto:<br/> <img width="150" src="img/'.$valores['foto_recursos'].'"><button>Reservar</button><br/> <br/></div>';
+	echo "</form>";
 	}
 	if ($valores['id_recursos'] == $numero){
-	echo '<div class="recursos_ultimo"><br/>Recurso: '.$valores['nombre_recursos'].'<br/>Descripción: '.$valores['descripcion_recursos'].'<br/>Estado: '.$estado.'<br/>Foto:<br/> <img width="150" src="img/'.$valores['foto_recursos'].'"><button value="'.$valores['id_recursos'].'" name="id_recursos" id="id_recursos">Reservar</button><br/> <br/></div>';
+		echo "<form action='reserva.php'>";
+	echo '<div class="recursos_ultimo"><br/>Recurso: '.$valores['nombre_recursos'].'<br/>Descripción: '.$valores['descripcion_recursos'].'<br/>Estado: '.$estado.'<br/>Foto:<br/> <img width="150" src="img/'.$valores['foto_recursos'].'"><button>Reservar</button><br/> <br/></div>';
+	echo "</form>";
 	}
-	echo'</form>';
 
           	}elseif($valores['estado_recursos'] == 1){
           		$estado = "No disponible";
-          	echo '<form action="devolver.php" method="post">';
+          		//Escribimos los recursos que no están disponibles para su reserva
           	if ($propietario == 1){
+          		//Escribimos los recursos que no están disponibles, pero de los que somos propietarios
           		if ($valores['id_recursos'] == 1){
-	echo '<div class="recursos_primero"><br/>Recurso: '.$valores['nombre_recursos'].'<br/>Descripción: '.$valores['descripcion_recursos'].'<br/>Estado: '.$estado.'<br/>Foto:<br/> <img width="150" src="img/'.$valores['foto_recursos'].'"><button value="'.$valores['id_recursos'].'" name="id_recursos" id="id_recursos">Devolver</button><br/> <br/></div>';
+          			echo "<form action='devolver.php'>";
+	echo '<div class="recursos_primero"><br/>Recurso: '.$valores['nombre_recursos'].'<br/>Descripción: '.$valores['descripcion_recursos'].'<br/>Estado: '.$estado.'<br/>Foto:<br/> <img width="150" src="img/'.$valores['foto_recursos'].'"><button>Devolver</button><br/> <br/></div>';
+	echo "</form>";
 	}
 	if ($valores['id_recursos'] >= 2 && $valores['id_recursos'] < $numero ){
-	echo '<div class="recursos"><br/>Recurso: '.$valores['nombre_recursos'].'<br/>Descripción: '.$valores['descripcion_recursos'].'<br/>Estado: '.$estado.'<br/>Foto:<br/> <img width="150" src="img/'.$valores['foto_recursos'].'"><button value="'.$valores['id_recursos'].'" name="id_recursos" id="id_recursos">Devolver</button><br/> <br/></div>';
+		echo "<form action='devolver.php'>";
+	echo '<div class="recursos"><br/>Recurso: '.$valores['nombre_recursos'].'<br/>Descripción: '.$valores['descripcion_recursos'].'<br/>Estado: '.$estado.'<br/>Foto:<br/> <img width="150" src="img/'.$valores['foto_recursos'].'"><button>Devolver</button><br/> <br/></div>';
+	echo "</form>";
 	}
 	if ($valores['id_recursos'] == $numero){
-	echo '<div class="recursos_ultimo"><br/>Recurso: '.$valores['nombre_recursos'].'<br/>Descripción: '.$valores['descripcion_recursos'].'<br/>Estado: '.$estado.'<br/>Foto:<br/> <img width="150" src="img/'.$valores['foto_recursos'].'"><button value="'.$valores['id_recursos'].'" name="id_recursos" id="id_recursos">Devolver</button><br/> <br/></div>';
+		echo "<form action='devolver.php'>";
+	echo '<div class="recursos_ultimo"><br/>Recurso: '.$valores['nombre_recursos'].'<br/>Descripción: '.$valores['descripcion_recursos'].'<br/>Estado: '.$estado.'<br/>Foto:<br/> <img width="150" src="img/'.$valores['foto_recursos'].'"><button>Devolver</button><br/> <br/></div>';
+	echo "</form>";
 	}
-	echo '</form>';
 	}elseif($propietario == 0){
-          	
+          	//Escribimos los recursos que no están disponibles, pero de los que NO somos propietarios
           	echo '<div class="recursos_primero"><br/>Recurso: '.$valores['nombre_recursos'].'<br/>Descripción: '.$valores['descripcion_recursos'].'<br/>Estado: '.$estado.'<br/>Foto:<br/> <img width="150" src="img/'.$valores['foto_recursos'].'"><button>No disponible</button><br/> <br/></div>';
 	}
 	if ($valores['id_recursos'] >= 2 && $valores['id_recursos'] < $numero ){
 	echo '<div class="recursos"><br/>Recurso: '.$valores['nombre_recursos'].'<br/>Descripción: '.$valores['descripcion_recursos'].'<br/>Estado: '.$estado.'<br/>Foto:<br/> <img width="150" src="img/'.$valores['foto_recursos'].'"><button>No disponible</button><br/> <br/></div>';
 	}
 	if ($valores['id_recursos'] == $numero){
-	echo '<div class="recursos_ultimo"><br/>Recurso: '.$valores['nombre_recursos'].'<br/>Descripción: '.$valores['descripcion_recursos'].'<br/>Estado: '.$estado.'<br/>Foto:<br/> <img width="150" src="img/'.$valores['foto_recursos'].'"><button>No disponible</button><br/> <br/></div>';
+	echo '<div class="recursos_ultimo"><br/>Recurso: '.$valores['nombre_recursos'].'<br/>Descripción: '.$valores['descripcion_recursos'].'<br/>Estado: '.$estado.'<br/>Foto:<br/> <img width="150" src="img/'.$valores['foto_recursos'].'"><button>Devolver</button><br/> <br/></div>';
           		
           	}
 
@@ -110,7 +119,7 @@ else {
 
 
 	?>
-	</form>
+	
 	<form action="logout.php">
 		<div class="input-group input-group-lg">
 		</div>
